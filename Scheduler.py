@@ -10,11 +10,11 @@ def userInput(tasks):
 	while(True):
 		proceed = raw_input("Type 'A' to add a task to your schedule and 'F' if you are finished.\n")
 		proceed.strip()
-		proceed.lower()
+		proceed = proceed.lower()
 		while(proceed != "f" and proceed != "a"):
 			proceed = raw_input("Sorry, input does not match the desired format, Type 'A' or 'F'.\n")
 			proceed.strip()
-			proceed.lower()
+			proceed = proceed.lower()
 		if proceed == "f":
 			break
 		taskName = raw_input("What is the name of your task?\n")
@@ -24,11 +24,11 @@ def userInput(tasks):
 			compTime = input("Enter a valid time between 1-24 hours\n")
 		pm = raw_input("Is your task due in the afternoon? Type 'AM' or 'PM'.\n")
 		pm.strip()
-		pm.lower()
+		pm = pm.lower()
 		while(pm != "pm" and pm != "am"):
 			pm = raw_input("Sorry, type 'AM' or 'PM'\n")
 			pm.strip()
-			pm.lower()
+			pm = pm.lower()
 		dueDate = input("What hour is it due?\n")
 		while(dueDate > 12 or dueDate <1 ):
 			dueDate = input("Enter a valid hour between 1 and 12, Thanks!\n")		
@@ -66,20 +66,30 @@ def schedTest(tasks, start):
 		
 
 def main():
-	tasks = []
-	userInput(tasks)
-	orderTasks(tasks)
-	start = input("When do you want to start your day?\n")
-	while(start <1 or start>12):
-		start = input("You can not be awake during the time you entered, please choose a time between 1-12!\n")
-	schedulable = schedTest(tasks, start)
+	schedulable = False
+	while(schedulable == False):
+		tasks = []
+		userInput(tasks)
+		orderTasks(tasks)
+		start = input("When do you want to start your day?\n")
+		while(start <1 or start>12):
+			start = input("You can not be awake during the time you entered, please choose a time between 1-12!\n")
+		schedulable = schedTest(tasks, start)
 
-	if(schedulable):
-		print("Here is the order you should complete your tasks to finish on time")
-		c=start
-		for task in tasks:
-			print("start " + task.taskName +" at "+ str(c))
-			c+=task.compTime
-	else:
-		print("Sorry, you cannot complete all your tasks today\n")
+		if(schedulable):
+			print("Here is the order you should complete your tasks to finish on time")
+			c=start
+			for task in tasks:
+				print("start " + task.taskName +" at "+ str(c))
+				c+=task.compTime
+		else:
+			print("Sorry, you cannot complete all your tasks today")
+			print("If you would like, you can enter your task set again")
+			print("With less tasks or less completition time to produce")
+			print("a doable schedule.  If you do not want to do this type")
+			cont = raw_input("'break' to exit.  Otherwise press any key to continue\n")
+			cont.strip()
+			cont = cont.lower()
+			if cont == "break":
+				schedulable = True
 main()
