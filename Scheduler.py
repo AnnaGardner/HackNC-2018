@@ -70,6 +70,8 @@ def main():
 	userInput(tasks)
 	orderTasks(tasks)
 	start = input("When do you want to start your day?\n")
+	while(start <1 or start>12):
+		start = input("You can not be awake during the time you entered, please choose a time between 1-12!\n")
 	schedulable = schedTest(tasks, start)
 
 	if(schedulable):
