@@ -20,6 +20,8 @@ def userInput(tasks):
 		taskName = raw_input("What is the name of your task?\n")
 		taskName.strip()
 		compTime = input("How many hours will your task take?\n")
+		while(compTime > 24 or compTime<1):
+			compTime = input("Enter a valid time between 1-24 hours\n")
 		pm = raw_input("Is your task due in the afternoon? Type 'AM' or 'PM'.\n")
 		pm.strip()
 		pm.lower()
@@ -28,6 +30,8 @@ def userInput(tasks):
 			pm.strip()
 			pm.lower()
 		dueDate = input("What hour is it due?\n")
+		while(dueDate > 12 or dueDate <1 ):
+			dueDate = input("Enter a valid hour between 1 and 12, Thanks!\n")		
 		if pm == "pm":
 			dueDate += 12
 		task = Task(taskName, compTime, dueDate)
